@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Word add-in manifest for 对照阅读 (parallel reader).
+  {{BASE}} is replaced by the HTTPS address where the add-in files are hosted,
+  e.g. https://NAME.github.io/word-parallel-reader  (no trailing slash).
+  Run:  node scripts/make-manifest.js https://NAME.github.io/word-parallel-reader
+-->
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+           xsi:type="TaskPaneApp">
+  <Id>a2b3bd60-c9e1-49e3-a2c0-3ea1eb6a75ba</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Mac</ProviderName>
+  <DefaultLocale>zh-CN</DefaultLocale>
+  <DisplayName DefaultValue="对照阅读"/>
+  <Description DefaultValue="导入另一个 Word 文件，在右侧窗格中与正文按标题和段落对齐，两边同步滚动。"/>
+  <IconUrl DefaultValue="{{BASE}}/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="{{BASE}}/assets/icon-64.png"/>
+  <SupportUrl DefaultValue="{{BASE}}/"/>
+  <AppDomains>
+    <AppDomain>{{BASE}}</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Document"/>
+  </Hosts>
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="WordApi" MinVersion="1.3"/>
+    </Sets>
+  </Requirements>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="{{BASE}}/taskpane.html"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="PR.GetStarted.Title"/>
+            <Description resid="PR.GetStarted.Description"/>
+            <LearnMoreUrl resid="PR.LearnMore.Url"/>
+          </GetStarted>
+          <FunctionFile resid="PR.Commands.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="PR.Group">
+                <Label resid="PR.Group.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="PR.Icon.16"/>
+                  <bt:Image size="32" resid="PR.Icon.32"/>
+                  <bt:Image size="80" resid="PR.Icon.80"/>
+                </Icon>
+                <Control xsi:type="Button" id="PR.OpenPane">
+                  <Label resid="PR.Button.Label"/>
+                  <Supertip>
+                    <Title resid="PR.Button.Label"/>
+                    <Description resid="PR.Button.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="PR.Icon.16"/>
+                    <bt:Image size="32" resid="PR.Icon.32"/>
+                    <bt:Image size="80" resid="PR.Icon.80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ParallelReaderPane</TaskpaneId>
+                    <SourceLocation resid="PR.Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="PR.Icon.16" DefaultValue="{{BASE}}/assets/icon-16.png"/>
+        <bt:Image id="PR.Icon.32" DefaultValue="{{BASE}}/assets/icon-32.png"/>
+        <bt:Image id="PR.Icon.80" DefaultValue="{{BASE}}/assets/icon-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="PR.Commands.Url" DefaultValue="{{BASE}}/commands.html"/>
+        <bt:Url id="PR.Taskpane.Url" DefaultValue="{{BASE}}/taskpane.html"/>
+        <bt:Url id="PR.LearnMore.Url" DefaultValue="{{BASE}}/"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="PR.GetStarted.Title" DefaultValue="对照阅读已安装"/>
+        <bt:String id="PR.Group.Label" DefaultValue="对照阅读"/>
+        <bt:String id="PR.Button.Label" DefaultValue="对照阅读"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="PR.GetStarted.Description" DefaultValue="在“开始”选项卡点击“对照阅读”，导入另一个 Word 文件进行中英文对照。"/>
+        <bt:String id="PR.Button.Tooltip" DefaultValue="在右侧打开对照窗格：导入另一个 Word 文件，按标题和段落与正文对齐并同步滚动。"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

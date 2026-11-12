@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>对照阅读</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="stylesheet" href="taskpane.css?v=1.0.0">
+</head>
+<body>
+  <header class="bar">
+    <button id="btn-import" class="btn primary" type="button">导入对照文档</button>
+    <label class="switch" title="开启后，两边按标题和段落对齐，一起滚动">
+      <input type="checkbox" id="sync-toggle" checked>
+      <span class="track" aria-hidden="true"><span class="thumb"></span></span>
+      <span class="switch-label">同步滚动</span>
+    </label>
+    <div class="menu-wrap">
+      <button id="btn-more" class="btn icon" type="button" aria-haspopup="true" aria-expanded="false" title="更多">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="3" cy="8" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="13" cy="8" r="1.4"/></svg>
+      </button>
+      <div id="menu" class="menu" role="menu" hidden>
+        <button type="button" role="menuitem" data-act="rescan">重新匹配</button>
+        <button type="button" role="menuitem" data-act="details">匹配详情</button>
+        <div class="menu-row"><span>字号</span>
+          <button type="button" data-act="font-" title="缩小">A−</button>
+          <button type="button" data-act="font+" title="放大">A+</button>
+        </div>
+        <button type="button" role="menuitem" data-act="clear">移除对照文档</button>
+      </div>
+    </div>
+  </header>
+
+  <div id="status" class="status" aria-live="polite"></div>
+
+  <main id="scroller" class="scroller" tabindex="0">
+    <section id="empty" class="empty">
+      <div class="drop" id="drop">
+        <p class="drop-title">选择要对照的 Word 文件</p>
+        <p class="drop-sub">点击上方“导入对照文档”，或把 .docx 文件拖到这里。文件只在本机解析，不会上传。</p>
+      </div>
+      <div class="howto">
+        <p>导入后，这个窗格会按标题、“摘要 / Abstract”一类的章节关键词和图表题注，把对照文档与左边的正文对齐。打开“同步滚动”后，滚动任意一边，另一边会跟到对应的位置。</p>
+        <p>双击右侧的任一段落，正文会跳到对应的地方。</p>
+      </div>
+    </section>
+    <article id="doc" class="doc" hidden></article>
+  </main>
+
+  <aside id="details" class="details" hidden>
+    <div class="details-head">
+      <span>匹配详情</span>
+      <button type="button" class="btn icon" id="details-close" title="关闭">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3.5 3.5l9 9m0-9l-9 9" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div id="details-body" class="details-body"></div>
+  </aside>
+
+  <input type="file" id="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+
+  <script src="vendor/fflate.min.js"></script>
+  <script src="vendor/mammoth.browser.min.js"></script>
+  <script src="src/align.js?v=1.0.0"></script>
+  <script src="src/taskpane.js?v=1.0.0"></script>
+</body>
+</html>
